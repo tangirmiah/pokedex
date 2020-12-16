@@ -1,13 +1,19 @@
 import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
+import PokemonCard from "./PokemonCard";
 
-export const PokemonGrid = ({ pokemonList, setPokemonList }) => {
+export const PokemonGrid = ({
+  searchedList,
+  setSearchedList,
+  setPokemonList,
+}) => {
   useEffect(() => {
     axios
       .get("https://pokeapi.co/api/v2/pokemon?limit=151")
       .then((response) => {
         const { results } = response.data;
+        console.log(results);
         const newPokemon = [];
         results.forEach((pokemon, index) => {
           newPokemon[index + 1] = {
@@ -19,15 +25,16 @@ export const PokemonGrid = ({ pokemonList, setPokemonList }) => {
           };
         });
         setPokemonList(newPokemon);
+        setSearchedList(newPokemon);
       });
   }, []);
 
-  const makePokemonList = () => {
-    return Object.keys(pokemonList).map((key) => {
-      //   console.log(pokemonList[key].name);
+  const makesearchedList = () => {
+    return Object.keys(searchedList).map((key) => {
+      //   console.log(searchedList[key].name);
       return (
-        <Grid item xs={12} sm={3}>
-          <h1>{pokemonList[key].name}</h1>
+        <Grid item xs={12} sm={3} key={searchedList[key].id}>
+          <PokemonCard pokemon={searchedList[key]} />
         </Grid>
       );
     });
@@ -35,18 +42,8 @@ export const PokemonGrid = ({ pokemonList, setPokemonList }) => {
 
   return (
     <>
-      <Grid container spacing={2}>
-        {makePokemonList()}
-        {/* {Object.keys(pokemonList).map((key) => {
-          console.log(pokemonList[key].name);
-          const name = pokemonList[key].name;
-          return (
-            <Grid item xs={12} sm={3}>
-              <h1>{pokemonList[key].name}</h1>
-            </Grid>
-          );
-          //   [pokemonList[key]];
-        })} */}
+      <Grid container spacing={2} justify="center" style={{ margin: "0 2vw" }}>
+        {makesearchedList()}
       </Grid>
     </>
   );

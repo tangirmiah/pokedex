@@ -1,5 +1,5 @@
 import SearchBar from "material-ui-search-bar";
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -9,13 +9,19 @@ const useStyles = makeStyles({
   },
 });
 export const Searchbar = (props) => {
+  const [searchItem, setSearchItem] = useState("");
   const classes = useStyles(props);
-
+  const searchHandler = (e) => {
+    console.log(props.pokemonList.filter((name) => name.name.includes(e)));
+    props.setSearchedList(
+      props.pokemonList.filter((name) => name.name.includes(e))
+    );
+  };
   return (
     <>
       <SearchBar
-        value={props.searchItem}
-        onChange={(e) => props.setSearchItem(e)}
+        value={searchItem}
+        onChange={(e) => searchHandler(e)}
         onRequestSearch={console.log("searched")}
         cancelOnEscape={true}
         placeholder="Search Pokemon"
