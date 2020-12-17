@@ -4,14 +4,7 @@ import { Container, Typography } from "@material-ui/core";
 import { Searchbar } from "./components/Searchbar";
 import { useState } from "react";
 import { PokemonGrid } from "./components/PokemonGrid";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png
 function App() {
   const [pokemonList, setPokemonList] = useState("");

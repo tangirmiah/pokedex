@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import PokemonCard from "./PokemonCard";
+import { CircularProgress } from "@material-ui/core";
 
 export const PokemonGrid = ({
   searchedList,
   setSearchedList,
   setPokemonList,
 }) => {
+  const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=900")
       .then((response) => {
         const { results } = response.data;
         //console.log(results);
@@ -26,6 +28,7 @@ export const PokemonGrid = ({
         });
         setPokemonList(newPokemon);
         setSearchedList(newPokemon);
+        setLoading(false);
       });
   }, []);
 
@@ -39,6 +42,10 @@ export const PokemonGrid = ({
       );
     });
   };
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
 
   return (
     <>

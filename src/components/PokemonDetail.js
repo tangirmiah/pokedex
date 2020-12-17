@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { Chip, CircularProgress } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     maxWidth: "50vw",
 
@@ -20,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
     height: 340,
     width: "auto",
     backgroundSize: "contain",
+    borderBottom: "1px solid rgba(0, 0, 0, 0.12) ",
+  },
+  type: {
+    margin: "0 2px",
   },
 }));
 
@@ -36,13 +38,13 @@ const PokemonDetail = () => {
 
         setLoading(false);
       });
-  }, []);
+  }, [pokemonName]);
 
   const classes = useStyles();
 
   const makeTypes = () => {
     return pokemon.types.map((type) => {
-      console.log(type.type.name);
+      console.log(type);
       let style = {};
       switch (type.type.name) {
         case "normal":
@@ -104,7 +106,14 @@ const PokemonDetail = () => {
           style = { color: "white", backgroundColor: "#AAB09F" };
           break;
       }
-      return <Chip label={type.type.name.toUpperCase()} style={style} />;
+      return (
+        <Chip
+          label={type.type.name.toUpperCase()}
+          style={style}
+          className={classes.type}
+          key={type.slot}
+        />
+      );
     });
   };
 

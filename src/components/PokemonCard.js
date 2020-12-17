@@ -3,13 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
   CardActionArea,
-  CardActions,
   CardContent,
   CardMedia,
-  Button,
   Typography,
 } from "@material-ui/core";
-import { AutorenewTwoTone } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -28,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 const PokemonCard = (props) => {
-  const { id, name, sprite } = props.pokemon;
+  const { name, sprite } = props.pokemon;
   const classes = useStyles();
   return (
     <>
