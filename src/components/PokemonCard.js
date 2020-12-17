@@ -27,16 +27,12 @@ const useStyles = makeStyles({
   },
 });
 
-const handleClick = (pokeName) => {
-  console.log(pokeName);
-};
-
 const PokemonCard = (props) => {
   const { id, name, sprite } = props.pokemon;
   const classes = useStyles();
   return (
     <>
-      <Card className={classes.root} onClick={() => handleClick(name)}>
+      <Card className={classes.root}>
         <Link to={`/${name}`} className={classes.link}>
           <CardActionArea>
             <CardMedia className={classes.media} image={sprite} title={name} />

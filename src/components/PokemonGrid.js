@@ -13,7 +13,7 @@ export const PokemonGrid = ({
       .get("https://pokeapi.co/api/v2/pokemon?limit=151")
       .then((response) => {
         const { results } = response.data;
-        console.log(results);
+        //console.log(results);
         const newPokemon = [];
         results.forEach((pokemon, index) => {
           newPokemon[index + 1] = {
