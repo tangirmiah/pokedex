@@ -33,7 +33,7 @@ export const PokemonGrid = ({
     return Object.keys(searchedList).map((key) => {
       //   console.log(searchedList[key].name);
       return (
-        <Grid item xs={12} sm={3} key={searchedList[key].id}>
+        <Grid item xs={12} sm={4} lg={3} key={searchedList[key].id}>
           <PokemonCard pokemon={searchedList[key]} />
         </Grid>
       );
