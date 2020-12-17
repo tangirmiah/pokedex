@@ -6,7 +6,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import { Chip, CircularProgress } from "@material-ui/core";
+import { Chip, CircularProgress, Grid } from "@material-ui/core";
+import InfoIcon from "@material-ui/icons/Info";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -23,11 +24,21 @@ const useStyles = makeStyles(() => ({
   type: {
     margin: "0 2px",
   },
+  infoGrid: {
+    marginTop: "3vh",
+    padding: "1em",
+  },
+  infoGridItem: {},
+  descriptionTitle: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const PokemonDetail = () => {
   const { pokemonName } = useParams();
   const [pokemon, setPokemon] = useState("");
+  const [pokemonDescription, setPokemonDescription] = useState("");
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,7 +47,16 @@ const PokemonDetail = () => {
       .then((response) => {
         setPokemon(response.data);
 
-        setLoading(false);
+        axios
+          .get(`https://pokeapi.co/api/v2/pokemon-species/${response.data.id}/`)
+          .then((response) => {
+            const des = response.data.flavor_text_entries[
+              Math.floor(Math.random() * 10)
+            ].flavor_text.replace("\f", "");
+            setPokemonDescription(des);
+            console.log(unescape(des));
+            setLoading(false);
+          });
       });
   }, [pokemonName]);
 
@@ -44,7 +64,6 @@ const PokemonDetail = () => {
 
   const makeTypes = () => {
     return pokemon.types.map((type) => {
-      console.log(type);
       let style = {};
       switch (type.type.name) {
         case "normal":
@@ -135,6 +154,24 @@ const PokemonDetail = () => {
             {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
           </Typography>
           {makeTypes()}
+          <Grid container spacing={1} className={classes.infoGrid}>
+            <Grid item xs={12} sm={6} lg={6} className={classes.infoGridItem}>
+              <Card className={classes.root} variant="outlined">
+                <CardContent>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    className={classes.descriptionTitle}
+                  >
+                    {<InfoIcon />} Description:
+                  </Typography>
+                  <Typography variant="body1" gutterBottom>
+                    {pokemonDescription}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </>
