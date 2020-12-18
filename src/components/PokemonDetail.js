@@ -6,8 +6,15 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import { Chip, CircularProgress, Grid } from "@material-ui/core";
+import {
+  Chip,
+  CircularProgress,
+  Grid,
+  List,
+  ListItem,
+} from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
+import AssessmentIcon from "@material-ui/icons/Assessment";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -16,7 +23,7 @@ const useStyles = makeStyles(() => ({
     margin: "0 auto",
   },
   media: {
-    height: 340,
+    height: 300,
     width: "auto",
     backgroundSize: "contain",
     borderBottom: "1px solid rgba(0, 0, 0, 0.12) ",
@@ -32,6 +39,26 @@ const useStyles = makeStyles(() => ({
   descriptionTitle: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  des: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+  },
+  listStat: {
+    width: "100%",
+    maxWidth: 360,
+  },
+  statItem: {
+    display: "flex",
+    justifyContent: "space-between",
+    margin: "0",
+    padding: "0",
+  },
+  desCardContent: {
+    height: "100%",
   },
 }));
 
@@ -50,11 +77,11 @@ const PokemonDetail = () => {
         axios
           .get(`https://pokeapi.co/api/v2/pokemon-species/${response.data.id}/`)
           .then((response) => {
-            const des = response.data.flavor_text_entries[
-              Math.floor(Math.random() * 10)
-            ].flavor_text.replace("\f", "");
+            const des = response.data.flavor_text_entries[1].flavor_text.replace(
+              "\f",
+              ""
+            );
             setPokemonDescription(des);
-            console.log(unescape(des));
             setLoading(false);
           });
       });
@@ -136,6 +163,23 @@ const PokemonDetail = () => {
     });
   };
 
+  const makeStats = () => {
+    console.log(pokemon.stats);
+    return pokemon.stats.map((stat) => {
+      console.log(stat);
+      return (
+        <ListItem className={classes.statItem}>
+          <Typography variant="subtitle1" gutterBottom>
+            {stat.stat.name.toUpperCase()}:
+          </Typography>
+          <Typography variant="h5" gutterBottom>
+            {stat.base_stat}
+          </Typography>
+        </ListItem>
+      );
+    });
+  };
+
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -153,21 +197,45 @@ const PokemonDetail = () => {
           <Typography variant="h3" color="textPrimary" component="p">
             {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
           </Typography>
+          <CardContent>
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+              alt=""
+            />
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`}
+              alt=""
+            />
+          </CardContent>
           {makeTypes()}
           <Grid container spacing={1} className={classes.infoGrid}>
             <Grid item xs={12} sm={6} lg={6} className={classes.infoGridItem}>
-              <Card className={classes.root} variant="outlined">
+              <Card className={classes.desCardContent} variant="outlined">
+                <CardContent className={classes.desCardContent}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    className={classes.descriptionTitle}
+                  >
+                    {<InfoIcon />}
+                  </Typography>
+                  <Typography variant="h5" gutterBottom className={classes.des}>
+                    {pokemonDescription}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} lg={6} className={classes.infoGridItem}>
+              <Card className={classes.desCardContent} variant="outlined">
                 <CardContent>
                   <Typography
                     variant="h6"
                     gutterBottom
                     className={classes.descriptionTitle}
                   >
-                    {<InfoIcon />} Description:
+                    {<AssessmentIcon />}
                   </Typography>
-                  <Typography variant="body1" gutterBottom>
-                    {pokemonDescription}
-                  </Typography>
+                  <List dense={true}>{makeStats()}</List>
                 </CardContent>
               </Card>
             </Grid>
