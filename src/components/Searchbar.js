@@ -22,11 +22,12 @@ export const Searchbar = (props) => {
       <SearchBar
         value={searchItem}
         onChange={(e) => searchHandler(e)}
+        onRequestSearch={(e) => searchHandler(e)}
         onCancelSearch={() => {
           props.setSearchedList(props.pokemonList);
         }}
         cancelOnEscape={true}
-        placeholder="Search Pokemon"
+        placeholder="Search Pokemon..."
         className={classes.search}
       />
     </>

@@ -6,13 +6,8 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import {
-  Chip,
-  CircularProgress,
-  Grid,
-  List,
-  ListItem,
-} from "@material-ui/core";
+import PokemonStats from "./PokemonStats";
+import { Chip, CircularProgress, Grid } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 
@@ -50,12 +45,6 @@ const useStyles = makeStyles(() => ({
   listStat: {
     width: "100%",
     maxWidth: 360,
-  },
-  statItem: {
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "0",
-    padding: "0",
   },
   desCardContent: {
     height: "100%",
@@ -163,23 +152,6 @@ const PokemonDetail = () => {
     });
   };
 
-  const makeStats = () => {
-    console.log(pokemon.stats);
-    return pokemon.stats.map((stat) => {
-      console.log(stat);
-      return (
-        <ListItem className={classes.statItem}>
-          <Typography variant="subtitle1" gutterBottom>
-            {stat.stat.name.toUpperCase()}:
-          </Typography>
-          <Typography variant="h5" gutterBottom>
-            {stat.base_stat}
-          </Typography>
-        </ListItem>
-      );
-    });
-  };
-
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -235,7 +207,8 @@ const PokemonDetail = () => {
                   >
                     {<AssessmentIcon />}
                   </Typography>
-                  <List dense={true}>{makeStats()}</List>
+
+                  <PokemonStats pokemonStat={pokemon.stats} />
                 </CardContent>
               </Card>
             </Grid>
