@@ -1,6 +1,6 @@
 import "./App.css";
 import PokemonDetail from "./components/PokemonDetail";
-import { Container, Typography } from "@material-ui/core";
+import { Container, Link, Typography } from "@material-ui/core";
 import { Searchbar } from "./components/Searchbar";
 import { useState } from "react";
 import { PokemonGrid } from "./components/PokemonGrid";
@@ -29,6 +29,7 @@ function App() {
               style={{ maxHeight: "0.8em" }}
             />
           </Typography>
+
           <Switch>
             <Route exact path="/">
               <Searchbar

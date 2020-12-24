@@ -16,11 +16,10 @@ import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: "50vw",
-
     margin: "0 auto",
   },
   media: {
-    height: 300,
+    height: 400,
     width: "auto",
     backgroundSize: "contain",
   },
@@ -60,6 +59,7 @@ const useStyles = makeStyles(() => ({
   },
   desCardContent: {
     height: "100%",
+    paddingBottom: "1em",
   },
 }));
 
@@ -179,6 +179,7 @@ const PokemonDetail = () => {
           "URL(https://image.freepik.com/free-vector/dark-cave-landscape_1308-16279.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -188,6 +189,7 @@ const PokemonDetail = () => {
           "URL(https://t4.ftcdn.net/jpg/02/12/47/49/360_F_212474908_4jkVLthplnKrSZVa5jg2Sob1hCbjobGj.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -197,6 +199,7 @@ const PokemonDetail = () => {
           "URL(https://cdn.gamedevmarket.net/wp-content/uploads/20191203171120/0d0cdf89d2a8244e09229299a50325e9.png)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -206,6 +209,7 @@ const PokemonDetail = () => {
           "URL(https://cdna.artstation.com/p/assets/images/images/009/253/930/large/ana-vallecillos-mainmenubg.jpg?1517950818)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -214,6 +218,7 @@ const PokemonDetail = () => {
         background: "URL(https://i.imgur.com/gGDCacv.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -222,6 +227,7 @@ const PokemonDetail = () => {
         background: "URL(https://cdn.hipwallpaper.com/i/48/98/sr5KBo.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -231,6 +237,7 @@ const PokemonDetail = () => {
           "URL(https://cdn.statically.io/img/wallpaperplay.com/walls/full/6/0/4/155105.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -240,15 +247,17 @@ const PokemonDetail = () => {
           "URL(https://www.itl.cat/pngfile/big/10-102395_vector-desktop-wallpaper-night-city-urban-cartoon-background.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
     case "waters-edge":
       habitatBackground = {
         background:
-          "URL(https://image.freepik.com/free-vector/empty-background-nature-scenery_1308-39814.jpg)",
+          "URL(https://image.freepik.com/free-vector/illustration-waterfall-rocks-night_33099-2386.jpg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundPosition: "center",
       };
       titleColor = { color: "white" };
       break;
@@ -258,99 +267,111 @@ const PokemonDetail = () => {
   }
   return (
     <>
-      <Card
-        className={classes.root}
-        variant="outlined"
-        style={habitatBackground}
-      >
-        <CardMedia
-          className={classes.media}
-          image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-          title={pokemon.name}
-          alt={pokemon.name}
-        />
-        <CardContent>
-          <Typography variant="h3" style={titleColor} component="p">
-            {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-          </Typography>
-          <CardContent>
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-              alt=""
+      <Grid container spacing={1} justify="center">
+        <Grid item xs={12} sm={12} lg={8}>
+          <Card variant="outlined" style={habitatBackground}>
+            <Typography variant="h2" style={titleColor} component="p">
+              {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+            </Typography>
+            <CardMedia
+              className={classes.media}
+              image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+              title={pokemon.name}
+              alt={pokemon.name}
             />
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`}
-              alt=""
-            />
-          </CardContent>
-          {makeTypes()}
-          <Grid container spacing={1} className={classes.infoGrid}>
-            <Grid item xs={12} sm={6} lg={6} className={classes.infoGridItem}>
-              <Card
-                className={classes.desCardContent}
-                style={{ borderColor: "#2196f3" }}
-                variant="outlined"
-              >
-                <CardContent className={classes.desCardContent}>
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                    className={classes.descriptionTitle}
+            <CardContent>
+              <CardContent>
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                  alt=""
+                />
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`}
+                  alt=""
+                />
+              </CardContent>
+              {makeTypes()}
+              <Grid container spacing={1} className={classes.infoGrid}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  lg={6}
+                  className={classes.infoGridItem}
+                >
+                  <Card
+                    className={classes.desCardContent}
+                    style={{ borderColor: "#2196f3" }}
+                    variant="outlined"
                   >
-                    {<InfoIcon style={{ color: "#2196f3" }} />}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    gutterBottom
-                    align="left"
-                    className={classes.desInfo}
-                  >
-                    <HeightIcon style={{ color: "#9c27b0" }} /> Height:{" "}
-                    {pokemon.height / 10} m
-                  </Typography>
+                    <CardContent className={classes.desCardContent}>
+                      <Typography
+                        variant="h5"
+                        gutterBottom
+                        className={classes.descriptionTitle}
+                      >
+                        {<InfoIcon style={{ color: "#2196f3" }} />}
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        gutterBottom
+                        align="left"
+                        className={classes.desInfo}
+                      >
+                        <HeightIcon style={{ color: "#9c27b0" }} /> Height:{" "}
+                        {pokemon.height / 10} m
+                      </Typography>
 
-                  <Typography
-                    variant="subtitle1"
-                    gutterBottom
-                    align="left"
-                    className={classes.desInfo}
+                      <Typography
+                        variant="subtitle1"
+                        gutterBottom
+                        align="left"
+                        className={classes.desInfo}
+                      >
+                        <FitnessCenterIcon style={{ color: "#f44336" }} />{" "}
+                        Weight: {pokemon.weight / 10} Kg
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        gutterBottom
+                        align="center"
+                        className={classes.des}
+                      >
+                        {pokemonDescription}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  lg={6}
+                  className={classes.infoGridItem}
+                >
+                  <Card
+                    className={classes.desCardContent}
+                    style={{ borderColor: "#4caf50" }}
+                    variant="outlined"
                   >
-                    <FitnessCenterIcon style={{ color: "#f44336" }} /> Weight:{" "}
-                    {pokemon.weight / 10} Kg
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    align="center"
-                    className={classes.des}
-                  >
-                    {pokemonDescription}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} lg={6} className={classes.infoGridItem}>
-              <Card
-                className={classes.desCardContent}
-                style={{ borderColor: "#4caf50" }}
-                variant="outlined"
-              >
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    className={classes.descriptionTitle}
-                  >
-                    {<AssessmentIcon style={{ color: "#4caf50" }} />}
-                  </Typography>
+                    <CardContent>
+                      <Typography
+                        variant="h6"
+                        gutterBottom
+                        className={classes.descriptionTitle}
+                      >
+                        {<AssessmentIcon style={{ color: "#4caf50" }} />}
+                      </Typography>
 
-                  <PokemonStats pokemonStat={pokemon.stats} />
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+                      <PokemonStats pokemonStat={pokemon.stats} />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </>
   );
 };

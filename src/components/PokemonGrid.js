@@ -12,7 +12,7 @@ export const PokemonGrid = ({
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon?limit=151")
+      .get("https://pokeapi.co/api/v2/pokemon?limit=386")
       .then((response) => {
         const { results } = response.data;
         //console.log(results);
