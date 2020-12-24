@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -7,12 +7,14 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import PokemonStats from "./PokemonStats";
-import { Chip, CircularProgress, Grid } from "@material-ui/core";
+import { Button, Chip, CircularProgress, Grid } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import HeightIcon from "@material-ui/icons/Height";
 import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
-
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: "50vw",
@@ -61,6 +63,11 @@ const useStyles = makeStyles(() => ({
     height: "100%",
     paddingBottom: "1em",
   },
+  background: {
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
 }));
 
 const PokemonDetail = () => {
@@ -68,13 +75,13 @@ const PokemonDetail = () => {
   const [pokemon, setPokemon] = useState("");
   const [pokemonDescription, setPokemonDescription] = useState("");
   const [isLoading, setLoading] = useState(true);
-  const [pokeHabitat, setPokeHabitat] = useState("");
-
+  const [habitatBackground, setHabitatBackground] = useState({});
   useEffect(async () => {
     const pokeRes = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
     );
     setPokemon(pokeRes.data);
+    console.log(pokeRes.data);
 
     const desRes = await axios.get(
       `https://pokeapi.co/api/v2/pokemon-species/${pokeRes.data.id}/`
@@ -87,7 +94,101 @@ const PokemonDetail = () => {
     setPokemonDescription(des);
 
     const pokeSpecies = await axios.get(pokeRes.data.species.url);
-    setPokeHabitat(pokeSpecies.data.habitat.name);
+
+    switch (pokeSpecies.data.habitat.name) {
+      case "cave":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://image.freepik.com/free-vector/dark-cave-landscape_1308-16279.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "forest":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://t4.ftcdn.net/jpg/02/12/47/49/360_F_212474908_4jkVLthplnKrSZVa5jg2Sob1hCbjobGj.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "grassland":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://cdn.gamedevmarket.net/wp-content/uploads/20191203171120/0d0cdf89d2a8244e09229299a50325e9.png)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "mountain":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://cdna.artstation.com/p/assets/images/images/009/253/930/large/ana-vallecillos-mainmenubg.jpg?1517950818)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "rare":
+        setHabitatBackground({
+          backgroundImage: "URL(https://i.imgur.com/gGDCacv.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "rough-terrain":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://cdn.hipwallpaper.com/i/48/98/sr5KBo.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "sea":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://cdn.statically.io/img/wallpaperplay.com/walls/full/6/0/4/155105.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "urban":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://www.itl.cat/pngfile/big/10-102395_vector-desktop-wallpaper-night-city-urban-cartoon-background.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+      case "waters-edge":
+        setHabitatBackground({
+          backgroundImage:
+            "URL(https://image.freepik.com/free-vector/illustration-waterfall-rocks-night_33099-2386.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        });
+
+        break;
+
+      default:
+        break;
+    }
     setLoading(false);
   }, [pokemonName]);
 
@@ -167,110 +268,47 @@ const PokemonDetail = () => {
     });
   };
 
+  const getNumber = () => {
+    if (pokemon.id < 10) return "00" + pokemon.id;
+    else if (pokemon.id < 10) return "0" + pokemon.id;
+    else return pokemon.id;
+  };
   if (isLoading) {
     return <CircularProgress />;
   }
 
-  let habitatBackground, titleColor;
-  switch (pokeHabitat) {
-    case "cave":
-      habitatBackground = {
-        background:
-          "URL(https://image.freepik.com/free-vector/dark-cave-landscape_1308-16279.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "forest":
-      habitatBackground = {
-        background:
-          "URL(https://t4.ftcdn.net/jpg/02/12/47/49/360_F_212474908_4jkVLthplnKrSZVa5jg2Sob1hCbjobGj.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "grassland":
-      habitatBackground = {
-        background:
-          "URL(https://cdn.gamedevmarket.net/wp-content/uploads/20191203171120/0d0cdf89d2a8244e09229299a50325e9.png)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "mountain":
-      habitatBackground = {
-        background:
-          "URL(https://cdna.artstation.com/p/assets/images/images/009/253/930/large/ana-vallecillos-mainmenubg.jpg?1517950818)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "rare":
-      habitatBackground = {
-        background: "URL(https://i.imgur.com/gGDCacv.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "rough-terrain":
-      habitatBackground = {
-        background: "URL(https://cdn.hipwallpaper.com/i/48/98/sr5KBo.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "sea":
-      habitatBackground = {
-        background:
-          "URL(https://cdn.statically.io/img/wallpaperplay.com/walls/full/6/0/4/155105.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "urban":
-      habitatBackground = {
-        background:
-          "URL(https://www.itl.cat/pngfile/big/10-102395_vector-desktop-wallpaper-night-city-urban-cartoon-background.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-    case "waters-edge":
-      habitatBackground = {
-        background:
-          "URL(https://image.freepik.com/free-vector/illustration-waterfall-rocks-night_33099-2386.jpg)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      };
-      titleColor = { color: "white" };
-      break;
-
-    default:
-      break;
-  }
   return (
     <>
       <Grid container spacing={1} justify="center">
+        <Grid item xs={12}>
+          <Button
+            disabled={pokemon.id - 1 === 0}
+            component={Link}
+            to={`/${pokemon.id - 1}`}
+            variant="outlined"
+            style={{ margin: "2px" }}
+            onClick={() => setLoading(true)}
+          >
+            <NavigateBeforeIcon />
+          </Button>
+          <Button
+            disabled={pokemon.id + 1 === 387}
+            component={Link}
+            to={`/${pokemon.id + 1}`}
+            variant="outlined"
+            style={{ margin: "2px" }}
+            onClick={() => setLoading(true)}
+          >
+            <NavigateNextIcon />
+          </Button>
+        </Grid>
         <Grid item xs={12} sm={12} lg={8}>
-          <Card variant="outlined" style={habitatBackground}>
-            <Typography variant="h2" style={titleColor} component="p">
+          <Card
+            variant="outlined"
+            style={habitatBackground}
+            className={classes.background}
+          >
+            <Typography variant="h2" style={{ color: "white" }} component="p">
               {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
             </Typography>
             <CardMedia
@@ -311,6 +349,16 @@ const PokemonDetail = () => {
                         className={classes.descriptionTitle}
                       >
                         {<InfoIcon style={{ color: "#2196f3" }} />}
+                      </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        gutterBottom
+                        align="left"
+                        className={classes.desInfo}
+                      >
+                        <AddCircleOutlineIcon style={{ color: "#ff9800" }} />
+                        {"  "}
+                        No: {getNumber()}
                       </Typography>
                       <Typography
                         variant="subtitle1"
