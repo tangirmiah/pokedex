@@ -12,7 +12,6 @@ const PokemonStats = ({ pokemonStat }) => {
   //   return <List dense={true}>{makeStats()}</List>;
   return (
     <>
-      {console.log(statName, statValue)}
       <HorizontalBar
         data={{
           labels: statName,
@@ -43,6 +42,9 @@ const PokemonStats = ({ pokemonStat }) => {
           scales: {
             xAxes: [
               {
+                ticks: {
+                  beginAtZero: true,
+                },
                 gridLines: {
                   display: false,
                 },
@@ -54,8 +56,6 @@ const PokemonStats = ({ pokemonStat }) => {
                   beginAtZero: true,
                   mirror: true,
                   padding: 120,
-                  beginAtZero: true,
-
                   fontColor: "black",
                   fontSize: 14,
                   fontFamily: "Segoe UI",
