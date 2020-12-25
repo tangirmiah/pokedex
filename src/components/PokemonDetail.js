@@ -76,120 +76,123 @@ const PokemonDetail = () => {
   const [pokemonDescription, setPokemonDescription] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [habitatBackground, setHabitatBackground] = useState({});
-  useEffect(async () => {
-    const pokeRes = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-    );
-    setPokemon(pokeRes.data);
-    console.log(pokeRes.data);
+  useEffect(() => {
+    const fetchData = async () => {
+      const pokeRes = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+      );
+      setPokemon(pokeRes.data);
+      console.log(pokeRes.data);
 
-    const desRes = await axios.get(
-      `https://pokeapi.co/api/v2/pokemon-species/${pokeRes.data.id}/`
-    );
+      const desRes = await axios.get(
+        `https://pokeapi.co/api/v2/pokemon-species/${pokeRes.data.id}/`
+      );
 
-    const des = desRes.data.flavor_text_entries[1].flavor_text.replace(
-      "\f",
-      ""
-    );
-    setPokemonDescription(des);
+      const des = desRes.data.flavor_text_entries[1].flavor_text.replace(
+        "\f",
+        ""
+      );
+      setPokemonDescription(des);
 
-    const pokeSpecies = await axios.get(pokeRes.data.species.url);
+      const pokeSpecies = await axios.get(pokeRes.data.species.url);
 
-    switch (pokeSpecies.data.habitat.name) {
-      case "cave":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://image.freepik.com/free-vector/dark-cave-landscape_1308-16279.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+      switch (pokeSpecies.data.habitat.name) {
+        case "cave":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://image.freepik.com/free-vector/dark-cave-landscape_1308-16279.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "forest":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://t4.ftcdn.net/jpg/02/12/47/49/360_F_212474908_4jkVLthplnKrSZVa5jg2Sob1hCbjobGj.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "forest":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://t4.ftcdn.net/jpg/02/12/47/49/360_F_212474908_4jkVLthplnKrSZVa5jg2Sob1hCbjobGj.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "grassland":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://cdn.gamedevmarket.net/wp-content/uploads/20191203171120/0d0cdf89d2a8244e09229299a50325e9.png)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "grassland":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://cdn.gamedevmarket.net/wp-content/uploads/20191203171120/0d0cdf89d2a8244e09229299a50325e9.png)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "mountain":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://cdna.artstation.com/p/assets/images/images/009/253/930/large/ana-vallecillos-mainmenubg.jpg?1517950818)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "mountain":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://cdna.artstation.com/p/assets/images/images/009/253/930/large/ana-vallecillos-mainmenubg.jpg?1517950818)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "rare":
-        setHabitatBackground({
-          backgroundImage: "URL(https://i.imgur.com/gGDCacv.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "rare":
+          setHabitatBackground({
+            backgroundImage: "URL(https://i.imgur.com/gGDCacv.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "rough-terrain":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://cdn.hipwallpaper.com/i/48/98/sr5KBo.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "rough-terrain":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://cdn.hipwallpaper.com/i/48/98/sr5KBo.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "sea":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://cdn.statically.io/img/wallpaperplay.com/walls/full/6/0/4/155105.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "sea":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://cdn.statically.io/img/wallpaperplay.com/walls/full/6/0/4/155105.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "urban":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://www.itl.cat/pngfile/big/10-102395_vector-desktop-wallpaper-night-city-urban-cartoon-background.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "urban":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://www.itl.cat/pngfile/big/10-102395_vector-desktop-wallpaper-night-city-urban-cartoon-background.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
-      case "waters-edge":
-        setHabitatBackground({
-          backgroundImage:
-            "URL(https://image.freepik.com/free-vector/illustration-waterfall-rocks-night_33099-2386.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        });
+          break;
+        case "waters-edge":
+          setHabitatBackground({
+            backgroundImage:
+              "URL(https://image.freepik.com/free-vector/illustration-waterfall-rocks-night_33099-2386.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          });
 
-        break;
+          break;
 
-      default:
-        break;
-    }
-    setLoading(false);
+        default:
+          break;
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, [pokemonName]);
 
   const classes = useStyles();
