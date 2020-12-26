@@ -30,7 +30,8 @@ const PokemonStats = ({ pokemonStat }) => {
           ],
         }}
         options={{
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
+          responsive: true,
           layout: {
             padding: {
               left: 120,

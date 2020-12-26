@@ -9,7 +9,7 @@ export const Searchbar = (props) => {
   const searchHandler = (e) => {
     console.log(props.pokemonList.filter((name) => name.name.includes(e)));
     props.setSearchedList(
-      props.pokemonList.filter((name) => name.name.includes(e))
+      props.pokemonList.filter((name) => name.name.includes(e.toLowerCase()))
     );
   };
   return (

@@ -32,7 +32,11 @@ const useStyles = makeStyles(() => ({
     marginTop: "3vh",
     padding: "1em",
   },
-  infoGridItem: {},
+
+  infoGridItem: {
+    minHeight: "300px",
+    maxHeight: "350px",
+  },
   descriptionTitle: {
     display: "flex",
     alignItems: "center",
@@ -43,10 +47,15 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "50%",
     color: "white",
     backgroundColor: "#2196f3",
     borderRadius: "4px",
+    padding: "1em",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    maxWidth: "100%",
+    maxHeight: "100%",
   },
   desInfo: {
     display: "flex",
@@ -57,7 +66,7 @@ const useStyles = makeStyles(() => ({
   },
   listStat: {
     width: "100%",
-    maxWidth: 360,
+    maxWidth: 400,
   },
   desCardContent: {
     height: "100%",
@@ -342,7 +351,9 @@ const PokemonDetail = () => {
                 >
                   <Card
                     className={classes.desCardContent}
-                    style={{ borderColor: "#2196f3" }}
+                    style={{
+                      borderColor: "#2196f3",
+                    }}
                     variant="outlined"
                   >
                     <CardContent className={classes.desCardContent}>
@@ -351,7 +362,13 @@ const PokemonDetail = () => {
                         gutterBottom
                         className={classes.descriptionTitle}
                       >
-                        {<InfoIcon style={{ color: "#2196f3" }} />}
+                        {
+                          <InfoIcon
+                            style={{
+                              color: "#2196f3",
+                            }}
+                          />
+                        }
                       </Typography>
                       <Typography
                         variant="subtitle1"
@@ -402,7 +419,9 @@ const PokemonDetail = () => {
                 >
                   <Card
                     className={classes.desCardContent}
-                    style={{ borderColor: "#4caf50" }}
+                    style={{
+                      borderColor: "#4caf50",
+                    }}
                     variant="outlined"
                   >
                     <CardContent>
