@@ -49,7 +49,7 @@ export const PokemonGrid = ({
 
   return (
     <>
-      <Grid container spacing={2} justify="center" style={{ margin: "0 2vw" }}>
+      <Grid container spacing={2} justify="center" align="center">
         {makesearchedList()}
       </Grid>
     </>
